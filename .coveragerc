@@ -1,0 +1,24 @@
+[run]
+source = src
+
+# Exclude Streamlit UI files — they require a live Streamlit server to render
+# and are validated through manual / end-to-end testing instead.
+omit =
+    src/web_app/app.py
+    src/web_app/tabs/*
+    src/web_app/components/charts.py
+    src/web_app/components/context_sidebar.py
+    src/web_app/components/disclaimer_banner.py
+    src/web_app/components/source_attribution.py
+    # One-time index-building script (not part of the runtime application)
+    src/data/seed_articles.py
+    # Logging and formatting stubs (trivial wrappers, no branching logic)
+    src/utils/logging_config.py
+    src/utils/formatters.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+    raise NotImplementedError
+    \.\.\.$

@@ -1,0 +1,76 @@
+app:
+  name: "Finnie - AI Finance Assistant"
+  version: "1.0.0"
+  description: "Multi-agent AI system for financial education"
+  debug: false
+  log_level: "INFO"
+
+llm:
+  model: "gemini-2.5-flash"
+  embedding_model: "models/gemini-embedding-001"
+  embedding_fallback: "sentence-transformers/all-MiniLM-L6-v2"
+  # Temperature per use-case
+  temperature:
+    classification: 0.0
+    qa: 0.2
+    news: 0.3
+    goal_planning: 0.5
+    default: 0.3
+  max_tokens: 2048
+  rate_limit:
+    requests_per_minute: 60
+    retry_attempts: 3
+    retry_base_delay: 1.0     # seconds
+    retry_max_delay: 30.0     # seconds
+
+apis:
+  alpha_vantage:
+    base_url: "https://www.alphavantage.co/query"
+    daily_quota: 25
+    timeout: 10
+  yfinance:
+    timeout: 10
+
+cache:
+  market_data_ttl: 1800      # 30 minutes
+  news_ttl: 900              # 15 minutes
+  llm_response_ttl: 86400   # 24 hours
+  faiss_retrieval_ttl: 3600  # 1 hour
+  max_size: 500
+
+rag:
+  chunk_size: 512            # tokens
+  chunk_overlap: 50          # tokens
+  top_k_initial: 10          # candidates before MMR
+  top_k_final: 5             # after MMR re-ranking
+  similarity_threshold: 0.3
+  index_path: "src/data/faiss_index"
+
+agents:
+  finance_qa:
+    name: "Finance Q&A Agent"
+    rag_categories: []        # empty = all categories
+  portfolio:
+    name: "Portfolio Analysis Agent"
+    rag_categories: ["investing", "market_concepts"]
+  market:
+    name: "Market Analysis Agent"
+    rag_categories: ["market_concepts"]
+  goal_planning:
+    name: "Goal Planning Agent"
+    rag_categories: ["basics", "investing", "retirement"]
+  news:
+    name: "News Synthesizer Agent"
+    rag_categories: ["market_concepts"]
+  tax:
+    name: "Tax Education Agent"
+    rag_categories: ["taxes", "retirement"]
+
+ui:
+  page_title: "Finnie - AI Finance Assistant"
+  page_icon: ""
+  layout: "wide"
+  market_refresh_seconds: 300   # 5 minutes
+  max_chat_history: 50          # messages retained in session
+  # Conversation history window sent to the orchestrator for multi-turn context
+  conversation_context_window: 10
