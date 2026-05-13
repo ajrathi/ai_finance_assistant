@@ -1,3 +1,14 @@
+---
+title: Finnie AI Finance Assistant
+emoji: 💰
+colorFrom: green
+colorTo: blue
+sdk: streamlit
+sdk_version: 1.41.0
+app_file: run.py
+pinned: false
+---
+
 # Finnie — AI Finance Assistant
 
 > **Educational AI, not financial advice.** Finnie is a multi-agent conversational system that provides personalized financial education through intelligent, context-aware conversations.
@@ -463,20 +474,4 @@ Ensure you've activated your virtual environment and run `pip install -r require
 | Rate Limiting | Token bucket (60 req/min) |
 | Testing | pytest + pytest-cov |
 
----
-title: Ai Finance Assistant
-emoji: 🚀
-colorFrom: red
-colorTo: red
-sdk: docker
-app_port: 8501
-tags:
-- streamlit
-pinned: false
-short_description: Streamlit template space
----
-
-# Welcome to Streamlit!
-
-Edit `/src/streamlit_app.py` to customize this app to your heart's desire. :heart:
 
